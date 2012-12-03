@@ -5,11 +5,20 @@
 import hashlib
 import urllib2
 import os.path
+import optparse
 from bs4 import BeautifulSoup
 from jinja2 import Template
 
+# Define command-line options
+parser = optparse.OptionParser()
+parser.add_option('-t', '--template', dest='template', default='template.html',
+                  help='Template file to use')
+parser.add_option('-o', '--output', dest='output', default='index.html',
+                  help='Output file to use')
+(options, args) = parser.parse_args()
+
 # Load and compile template
-template = Template(file('template.html').read())
+template = Template(file(options.template).read())
 
 # Make sure images/ dir exists
 imagesDir = 'images'
@@ -25,6 +34,7 @@ for url in file('urls.txt'):
     soup = BeautifulSoup(page)
 
     items.append({
+        'url': url,
         'title': soup.figcaption.string,
         'imageUrl': soup.find(class_='fig-image').img['src'],
         'price': soup.find(class_='price').string,
@@ -44,5 +54,6 @@ for item in items:
     else:
         print 'Using previously saved image for %s' % item['imageUrl']
 
-output = template.render(items=items)
-file('index.html', 'w').write(output)
+templateVariables = dict([('item%d' % (i + 1), item) for (i, item) in enumerate(items)])
+output = template.render(items=items, **templateVariables)
+file(options.output, 'w').write(output)

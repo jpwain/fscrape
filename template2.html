@@ -5,26 +5,26 @@
 	<body>
 		<table>
 			<tr>
-				<td><a href="Item01URL"><img src="Item01ImageFilename" alt="Item01Title"></a></td>
-				<td><a href="Item02URL"><img src="Item02ImageFilename" alt="Item02Title"></a></td>
-				<td><a href="Item03URL"><img src="Item03ImageFilename" alt="Item03Title"></a></td>
+				<td><a href="{{item1.url}}"><img src="images/{{item1.imageFilename}}" alt="{{item1.title}}"></a></td>
+				<td><a href="{{item2.url}}"><img src="images/{{item2.imageFilename}}" alt="{{item2.title}}"></a></td>
+				<td><a href="{{item3.url}}"><img src="images/{{item3.imageFilename}}" alt="{{item3.title}}"></a></td>
 			</tr>
 			<tr>
-				<td>Item01Title</td>
-				<td>Item02Title</td>
-				<td>Item03Title</td>
+				<td>{{item1.title}}</td>
+				<td>{{item2.title}}</td>
+				<td>{{item3.title}}</td>
 			</tr>
 		</table>
 
-		<h2>Item04Title</h2>
-		<img src="Item04ImageFilename" alt="Item04Title">
+		<h2>{{item4.title}}</h2>
+		<img src="images/{{item4.imageFilename}}" alt="{{item4.title}}">
 
 		<table>
 			<tr>
-				<td><a href="Item05URL"><img src="Item05ImageFilename" alt="Item05Title"></a></td>
+				<td><a href="{{item5.url}}"><img src="images/{{item5.imageFilename}}" alt="{{item5.title}}"></a></td>
 			</tr>
 			<tr>
-				<td>Item05Title</td>
+				<td>{{item5.title}}</td>
 			</tr>
 		</table>
 
