@@ -10,13 +10,13 @@
 				<td><a href="{{item3.url}}"><img src="images/{{item3.imageFilename}}" alt="{{item3.title}}"></a></td>
 			</tr>
 			<tr>
-				<td>{{item1.title}}</td>
-				<td>{{item2.title}}</td>
-				<td>{{item3.title}}</td>
+				<td>{{item1.title}} {{item1.price}}</td>
+				<td>{{item2.title}} {{item1.price}}</td>
+				<td>{{item3.title}} {{item1.price}}</td>
 			</tr>
 		</table>
 
-		<h2>{{item4.title}}</h2>
+		<h2>{{item4.title}} / {{item1.price}}</h2>
 		<img src="images/{{item4.imageFilename}}" alt="{{item4.title}}">
 
 		<table>
@@ -24,7 +24,7 @@
 				<td><a href="{{item5.url}}"><img src="images/{{item5.imageFilename}}" alt="{{item5.title}}"></a></td>
 			</tr>
 			<tr>
-				<td>{{item5.title}}</td>
+				<td>{{item5.title}} {{item1.price}}</td>
 			</tr>
 		</table>
 
