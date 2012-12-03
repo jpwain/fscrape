@@ -7,9 +7,9 @@
     </head>
     <body>
         {% for item in items %}
-		<h1>{{ item.title }}</h1>
-		<img src="images/{{ item.imageFilename|e }}" alt="{{ item.title }}">
-		<strong>{{ item.price }}</strong>
+        <h1>{{ item.title }}</h1>
+        <img src="images/{{ item.imageFilename|e }}" alt="{{ item.title }}">
+        <strong>{{ item.price }}</strong>
         {% endfor %}
     </body>
 </html>
