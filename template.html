@@ -6,18 +6,10 @@
         <title>Template</title>
     </head>
     <body>
-
-		<h1>Item01Tile</h1>
-		<img src="Item01ImgURL" alt="Item01Tile">
-		<strong>Item01Price</strong>
-
-		<h1>Item02Tile</h1>
-		<img src="Item02ImgURL" alt="Item02Tile">
-		<strong>Item02Price</strong>
-
-		<h1>Item03Tile</h1>
-		<img src="Item03ImgURL" alt="Item03Tile">
-		<strong>Item03Price</strong>
-
+        {% for item in items %}
+		<h1>{{ item.title }}</h1>
+		<img src="images/{{ item.imageFilename|e }}" alt="{{ item.title }}">
+		<strong>{{ item.price }}</strong>
+        {% endfor %}
     </body>
 </html>
