@@ -2,7 +2,6 @@
 
 # Scrape some info from Fancy
 
-import hashlib
 import urllib2
 import os.path
 import optparse
@@ -40,20 +39,21 @@ for url in file('urls.txt'):
         'price': soup.find(class_='price').string,
     })
 
-# For each item, download image
-for item in items:
-    filename = hashlib.md5(item['imageUrl']).hexdigest()
-    imagePath = 'images/%s' % filename
-    item['imageFilename'] = filename
-    if not os.path.exists(imagePath):
-        webImage = urllib2.urlopen(item['imageUrl'])
-        print 'Downloading image %s' % item['imageUrl']
-        imageFile = file(imagePath, 'w+b')
-        imageFile.write(webImage.read())
-        imageFile.close()
-    else:
-        print 'Using previously saved image for %s' % item['imageUrl']
+# Process each item, downloading image
+templateVariables = {}
+for i, item in enumerate(items):
+    itemName = 'item%d' % (i + 1)  # Start names at 1 instead of zero
+    templateVariables[itemName] = item
+    print 'Downloading image %s...' % item['imageUrl'],
+    webImage = urllib2.urlopen(item['imageUrl'])
+    # TODO: confirm that webImage.info().getmaintype() is 'image'
+    extension = webImage.info().getsubtype()
+    imageFilename = '%s.%s' % (itemName, extension)
+    item['imageFilename'] = imageFilename
+    imageFile = file('images/%s' % imageFilename, 'w+b')
+    imageFile.write(webImage.read())
+    print 'done.'
+    imageFile.close()
 
-templateVariables = dict([('item%d' % (i + 1), item) for (i, item) in enumerate(items)])
 output = template.render(items=items, **templateVariables)
 file(options.output, 'w').write(output)
