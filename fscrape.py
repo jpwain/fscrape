@@ -11,7 +11,7 @@ from jinja2 import Template
 # Define command-line options
 parser = optparse.OptionParser()
 parser.add_option('-t', '--template', dest='template', default='template.html',
-                  help='Template file to use')
+                 help='Template file to use')
 parser.add_option('-o', '--output', dest='output', default='index.html',
                   help='Output file to use')
 (options, args) = parser.parse_args()
@@ -28,9 +28,10 @@ if not os.path.exists('images'):
 items = []
 for url in file('urls.txt'):
     url = url.strip()
-    print 'Processing page at %s' % url
+    print 'Processing page at %s... ' % url,
     page = urllib2.urlopen(url).read()
     soup = BeautifulSoup(page)
+    print 'done.'
 
     items.append({
         'url': url,
@@ -56,4 +57,4 @@ for i, item in enumerate(items):
     imageFile.close()
 
 output = template.render(items=items, **templateVariables)
-file(options.output, 'w').write(output)
+file(options.output, 'w').write(output.encode('utf-8'))
