@@ -31,13 +31,15 @@ for url in file('urls.txt'):
     print 'Processing page at %s... ' % url,
     page = urllib2.urlopen(url).read()
     soup = BeautifulSoup(page)
+    priceElement = soup.find(class_='price')
+
     print 'done.'
 
     items.append({
         'url': url,
         'title': soup.figcaption.string,
         'imageUrl': soup.find(class_='fig-image').img['src'],
-        'price': soup.find(class_='price').string,
+        'price': priceElement and priceElement.string or '',
     })
 
 # Process each item, downloading image
@@ -49,6 +51,8 @@ for i, item in enumerate(items):
     webImage = urllib2.urlopen(item['imageUrl'])
     # TODO: confirm that webImage.info().getmaintype() is 'image'
     extension = webImage.info().getsubtype()
+    if extension == 'jpeg':
+        extension = 'jpg'
     imageFilename = '%s.%s' % (itemName, extension)
     item['imageFilename'] = imageFilename
     imageFile = file('images/%s' % imageFilename, 'w+b')
